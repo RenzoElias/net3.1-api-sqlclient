@@ -8,6 +8,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using WebApplication1.Models;
+using Dapper;
 
 namespace WebApplication1.Controllers
 {
@@ -26,19 +27,18 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            
             string query = @"
-                            select DepartmentId, DepartmentName from
-                            dbo.Department
+                            SP_DEPARTMENT
                             ";
 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
             SqlDataReader myReader;
-            using(SqlConnection myCon=new SqlConnection(sqlDataSource))
+
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
             {
                 myCon.Open();
-                using(SqlCommand myCommand=new SqlCommand(query, myCon))
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -50,12 +50,13 @@ namespace WebApplication1.Controllers
             return new JsonResult(table);
         }
 
+        
+
         [HttpPost]
         public JsonResult Post(Department dep)
         {
             string query = @"
-                           insert into dbo.Department
-                           values (@DepartmentName)
+                            SP_INSERT_DEP @DepartmentName
                             ";
 
             DataTable table = new DataTable();
@@ -76,6 +77,7 @@ namespace WebApplication1.Controllers
 
             return new JsonResult("Added Successfully");
         }
+        
 
 
         [HttpPut]
@@ -138,3 +140,54 @@ namespace WebApplication1.Controllers
 
     }
 }
+
+/*
+        public JsonResult Post(Department dep)
+        {
+            string query = @"
+                           insert into dbo.Department
+                           values (@DepartmentName)
+                            ";
+
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myCommand.Parameters.AddWithValue("@DepartmentName", dep.DepartmentName);
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+
+            return new JsonResult("Added Successfully");
+        }*/
+
+/*
+public JsonResult Get()
+{
+    string query = @"
+                            select DepartmentId, DepartmentName from
+                            dbo.Department
+                            ";
+    DataTable table = new DataTable();
+    string sqlDataSource = _configuration.GetConnectionString("EmployeeAppCon");
+    SqlDataReader myReader;
+    using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+    {
+        myCon.Open();
+        using (SqlCommand myCommand = new SqlCommand(query, myCon))
+        {
+            myReader = myCommand.ExecuteReader();
+            table.Load(myReader);
+            myReader.Close();
+            myCon.Close();
+        }
+    }
+    return new JsonResult(table);
+}*/

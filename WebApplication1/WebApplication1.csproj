@@ -16,10 +16,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Business\" />
-    <Folder Include="Data\DataAccess\" />
+    <Folder Include="Data\Business\IService\" />
+    <Folder Include="Data\Business\UnitOfWork\" />
+    <Folder Include="Data\Business\Service\" />
+    <Folder Include="Data\DataAccess\Base\" />
+    <Folder Include="Data\DataAccess\IRepository\" />
+    <Folder Include="Data\DataAccess\Repository\" />
     <Folder Include="Data\Model\" />
-    <Folder Include="DTOs\" />
     <Folder Include="Mapper\" />
     <Folder Include="Model\" />
     <Folder Include="Photos\" />
