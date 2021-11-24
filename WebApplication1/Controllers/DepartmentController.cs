@@ -26,6 +26,7 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public JsonResult Get()
         {
+            
             string query = @"
                             select DepartmentId, DepartmentName from
                             dbo.Department

@@ -2,14 +2,26 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>API.MS.CLIENT</AssemblyName>
+    <RootNamespace>API.MS.CLIENT</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.0" />
+    <PackageReference Include="Dapper" Version="2.0.78" />
+    <PackageReference Include="Dapper.Contrib" Version="2.0.78" />
+    <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="5.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.16" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Data\Business\" />
+    <Folder Include="Data\DataAccess\" />
+    <Folder Include="Data\Model\" />
+    <Folder Include="DTOs\" />
+    <Folder Include="Mapper\" />
+    <Folder Include="Model\" />
     <Folder Include="Photos\" />
   </ItemGroup>
 
